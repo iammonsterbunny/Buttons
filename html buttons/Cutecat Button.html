@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Cat Button</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffc8dd, #ffafcc);
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+
+        .cat-button {
+            position: relative;
+            padding: 18px 40px;
+            background: linear-gradient(145deg, #ff9ebb, #ff85a1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .cat-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(145deg, #ff85a1, #ff6b9d);
+        }
+
+        .cat-button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .cat-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cat-button:hover::before {
+            left: 100%;
+        }
+
+        .cat-ears {
+            position: absolute;
+            top: -15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .ear {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #ff9ebb;
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+
+        .ear.left {
+            transform: rotate(-15deg);
+        }
+
+        .ear.right {
+            transform: rotate(15deg);
+        }
+
+        .cat-button:hover .ear.left {
+            transform: rotate(-25deg);
+        }
+
+        .cat-button:hover .ear.right {
+            transform: rotate(25deg);
+        }
+
+        .cat-face {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eye {
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pupil {
+            width: 6px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.2s ease;
+        }
+
+        .nose {
+            width: 10px;
+            height: 8px;
+            background-color: #ff6b9d;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .whiskers {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .whisker {
+            height: 2px;
+            background-color: white;
+            width: 20px;
+            position: absolute;
+            top: 0;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 0.3s ease;
+        }
+
+        .whisker.left {
+            left: -25px;
+            transform-origin: right center;
+        }
+
+        .whisker.right {
+            right: -25px;
+            transform-origin: left center;
+        }
+
+        .cat-button:hover .whisker {
+            opacity: 0.7;
+            transform: scaleX(1);
+        }
+
+        .whisker:nth-child(1) { top: -5px; }
+        .whisker:nth-child(2) { top: 0; }
+        .whisker:nth-child(3) { top: 5px; }
+        .whisker:nth-child(4) { top: -5px; }
+        .whisker:nth-child(5) { top: 0; }
+        .whisker:nth-child(6) { top: 5px; }
+
+        .text {
+            z-index: 1;
+            margin-left: 5px;
+        }
+
+        .paw-print {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .paw-print-1 {
+            top: 10px;
+            left: 15px;
+        }
+
+        .paw-print-2 {
+            bottom: 10px;
+            right: 15px;
+        }
+
+        .cat-button:hover .paw-print {
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+
+        .meow-text {
+            position: absolute;
+            top: -40px;
+            background: white;
+            color: #ff6b9d;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cat-button:hover .meow-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <button class="cat-button" id="catButton">
+        <div class="cat-ears">
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+        </div>
+        <div class="whiskers">
+            <div class="whisker left"></div>
+            <div class="whisker left"></div>
+            <div class="whisker left"></div>
+            <div class="whisker right"></div>
+            <div class="whisker right"></div>
+            <div class="whisker right"></div>
+        </div>
+        <div class="cat-face">
+            <div class="eye">
+                <div class="pupil"></div>
+            </div>
+            <div class="nose"></div>
+            <div class="eye">
+                <div class="pupil"></div>
+            </div>
+        </div>
+        <span class="text">Adopt Me!</span>
+        <div class="paw-print paw-print-1">🐾</div>
+        <div class="paw-print paw-print-2">🐾</div>
+        <div class="meow-text">Meow! 🐱</div>
+    </button>
+
+    <script>
+        const catButton = document.getElementById('catButton');
+        const pupils = document.querySelectorAll('.pupil');
+        
+        // Make pupils follow cursor
+        document.addEventListener('mousemove', (e) => {
+            const rect = catButton.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            pupils.forEach(pupil => {
+                const eye = pupil.parentElement;
+                const eyeRect = eye.getBoundingClientRect();
+                const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+                
+                const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+                const distance = Math.min(3, Math.sqrt(
+                    Math.pow(e.clientX - eyeCenterX, 2) + 
+                    Math.pow(e.clientY - eyeCenterY, 2)
+                ) / 50);
+                
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                pupil.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+        
+        // Add bounce animation on click
+        catButton.addEventListener('click', function() {
+            this.classList.add('bounce');
+            setTimeout(() => {
+                this.classList.remove('bounce');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
