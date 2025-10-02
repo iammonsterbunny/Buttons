@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Cat Toggle Switch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffc8dd, #ffafcc, #bde0fe);
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ff6b9d;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            color: #6d6875;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .toggle-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            color: #6d6875;
+            font-size: 1.1rem;
+        }
+
+        .toggle-label i {
+            font-size: 1.5rem;
+            width: 30px;
+        }
+
+        /* Cat Toggle Switch Styles */
+        .cat-toggle {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+        }
+
+        .cat-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, #ff9ebb, #ff6b9d);
+            transition: all 0.4s ease;
+            border-radius: 50px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .cat-face {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 45px;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        .cat-face.sleeping {
+            left: 10px;
+        }
+
+        .face {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 0 2px #ff9ebb;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 6px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .eye {
+            width: 6px;
+            height: 8px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .sleeping .eye {
+            height: 2px;
+            background: #ff6b9d;
+            border-radius: 1px;
+        }
+
+        .mouth {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 4px;
+            background: #ff6b9d;
+            border-radius: 0 0 4px 4px;
+            transition: all 0.3s ease;
+        }
+
+        .sleeping .mouth {
+            width: 6px;
+            height: 2px;
+            border-radius: 1px;
+        }
+
+        .ears {
+            position: absolute;
+            top: -8px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ear {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 10px solid #ff9ebb;
+        }
+
+        .sleeping .ear {
+            border-bottom: 10px solid #cdb4db;
+        }
+
+        .toggle-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .on-text {
+            left: 10px;
+        }
+
+        .off-text {
+            right: 10px;
+        }
+
+        input:checked + .slider .on-text {
+            opacity: 1;
+        }
+
+        input:checked + .slider .off-text {
+            opacity: 0;
+        }
+
+        input:not(:checked) + .slider .on-text {
+            opacity: 0;
+        }
+
+        input:not(:checked) + .slider .off-text {
+            opacity: 1;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(to right, #bde0fe, #a2d2ff);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(40px);
+            background: white;
+        }
+
+        input:checked + .slider .cat-face {
+            left: 10px;
+        }
+
+        input:checked + .slider .cat-face:not(.sleeping) {
+            left: 45px;
+        }
+
+        /* Animation for toggle */
+        @keyframes purr {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+
+        .cat-toggle input:checked + .slider {
+            animation: purr 0.3s ease;
+        }
+
+        /* Status message */
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #6d6875;
+            transition: all 0.3s ease;
+        }
+
+        .status.active {
+            background: #e3f2fd;
+            color: #2196f3;
+        }
+
+        .cat-fact {
+            margin-top: 20px;
+            font-style: italic;
+            color: #6d6875;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #6d6875;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #ff6b9d;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-cat"></i> Cute Cat Toggle</h1>
+        <p class="subtitle">Toggle the switches and watch the cat's expressions change!</p>
+        
+        <div class="toggle-container">
+            <div class="toggle-wrapper">
+                <div class="toggle-label">
+                    <i class="fas fa-paw" style="color: #ff6b9d;"></i>
+                    <span>Play Mode</span>
+                </div>
+                <label class="cat-toggle">
+                    <input type="checkbox" id="toggle1">
+                    <span class="slider">
+                        <span class="cat-face">
+                            <div class="ears">
+                                <div class="ear left"></div>
+                                <div class="ear right"></div>
+                            </div>
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye left"></div>
+                                    <div class="eye right"></div>
+                                </div>
+                                <div class="mouth"></div>
+                            </div>
+                        </span>
+                        <span class="toggle-text on-text">ON</span>
+                        <span class="toggle-text off-text">OFF</span>
+                    </span>
+                </label>
+            </div>
+            
+            <div class="toggle-wrapper">
+                <div class="toggle-label">
+                    <i class="fas fa-moon" style="color: #cdb4db;"></i>
+                    <span>Sleep Mode</span>
+                </div>
+                <label class="cat-toggle">
+                    <input type="checkbox" id="toggle2">
+                    <span class="slider">
+                        <span class="cat-face sleeping">
+                            <div class="ears">
+                                <div class="ear left"></div>
+                                <div class="ear right"></div>
+                            </div>
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye left"></div>
+                                    <div class="eye right"></div>
+                                </div>
+                                <div class="mouth"></div>
+                            </div>
+                        </span>
+                        <span class="toggle-text on-text">ON</span>
+                        <span class="toggle-text off-text">OFF</span>
+                    </span>
+                </label>
+            </div>
+            
+            <div class="toggle-wrapper">
+                <div class="toggle-label">
+                    <i class="fas fa-heart" style="color: #ff6b9d;"></i>
+                    <span>Purr Mode</span>
+                </div>
+                <label class="cat-toggle">
+                    <input type="checkbox" id="toggle3">
+                    <span class="slider">
+                        <span class="cat-face">
+                            <div class="ears">
+                                <div class="ear left"></div>
+                                <div class="ear right"></div>
+                            </div>
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye left"></div>
+                                    <div class="eye right"></div>
+                                </div>
+                                <div class="mouth"></div>
+                            </div>
+                        </span>
+                        <span class="toggle-text on-text">ON</span>
+                        <span class="toggle-text off-text">OFF</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="status" id="status">
+            Toggle the switches to see the status change here!
+        </div>
+        
+        <div class="cat-fact" id="catFact">
+            Did you know? Cats sleep for about 12-16 hours a day!
+        </div>
+        
+        <div class="footer">
+            Made By <i class="fas fa-heart" style="color: #ff6b9d;"></i> for <a href="https://iammonsterbunny.giize.com/" target="_blank">MonsterBunny</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggles = document.querySelectorAll('.cat-toggle input');
+            const status = document.getElementById('status');
+            const catFact = document.getElementById('catFact');
+            
+            const facts = [
+                "Did you know? Cats sleep for about 12-16 hours a day!",
+                "Fun fact: A group of cats is called a clowder!",
+                "Cats have whiskers on the backs of their front legs!",
+                "A cat's nose print is unique, much like a human's fingerprint!",
+                "Cats can rotate their ears 180 degrees!",
+                "Cats have five toes on their front paws, but only four on the back!"
+            ];
+            
+            toggles.forEach((toggle, index) => {
+                toggle.addEventListener('change', function() {
+                    // Update status message
+                    const labels = ['Play Mode', 'Sleep Mode', 'Purr Mode'];
+                    if (this.checked) {
+                        status.textContent = `${labels[index]} is now ON!`;
+                        status.classList.add('active');
+                    } else {
+                        status.textContent = `${labels[index]} is now OFF.`;
+                        status.classList.remove('active');
+                    }
+                    
+                    // Change cat fact randomly
+                    const randomFact = facts[Math.floor(Math.random() * facts.length)];
+                    catFact.textContent = randomFact;
+                    
+                    // Add purr animation to the slider
+                    const slider = this.nextElementSibling;
+                    slider.style.animation = 'none';
+                    setTimeout(() => {
+                        slider.style.animation = 'purr 0.3s ease';
+                    }, 10);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
