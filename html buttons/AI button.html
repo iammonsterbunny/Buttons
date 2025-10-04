@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+    .boddy{
+        background-color: black;
+    }
+    
+    .orb-button {
+  --size: 8em; /* Base size of the orb */
+  --glow-color: hsl(200, 100%, 60%); /* Primary glow color */
+  --hover-glow: hsl(200, 100%, 70%); /* Brighter glow on hover */
+  --active-glow: hsl(200, 100%, 50%); /* Dimmer glow when active */
+  --text-color: #fff; /* Text color for contrast */
+  --shadow: 0 0 1em rgba(0, 0, 0, 0.1); /* Subtle shadow */
+
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color), transparent 70%);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+}
+
+/* Orb animation: breathing effect */
+.orb-button::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+  opacity: 0;
+  animation: breathe 2s infinite ease-in-out;
+}
+
+/* Ripple effect on active state */
+.orb-button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0);
+  transition: transform 0.3s ease-out;
+}
+
+/* Hover state */
+.orb-button:hover {
+  background: radial-gradient(circle, var(--hover-glow), transparent 70%);
+  box-shadow: 0 0 1.5em rgba(200, 200, 255, 0.5);
+}
+
+/* Focus state for accessibility */
+.orb-button:focus {
+  box-shadow: 0 0 1em rgba(200, 200, 255, 0.7), 0 0 0 0.2em var(--glow-color);
+}
+
+/* Active state */
+.orb-button:active {
+  background: radial-gradient(circle, var(--active-glow), transparent 70%);
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+}
+
+.orb-button:active::after {
+  transform: scale(1.2);
+}
+
+/* Text styling */
+.orb-text {
+  font-family: sans-serif;
+  font-size: 1.2em;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  z-index: 1;
+}
+
+/* Breathing animation */
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+</style>
+    <div class="orb-button" role="button" tabindex="0">
+  <span class="orb-text">Ask Me</span>
+</div>
+</body>
+</html>

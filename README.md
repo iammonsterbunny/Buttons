@@ -57,3 +57,65 @@ The toggle switches are created with pure HTML, CSS, and JavaScript:
 - Custom cat face elements created with CSS (ears, eyes, mouth)
 - Dynamic cat facts that change with each toggle interaction
 - Keyframe animations for interactive feedback
+
+# AI Orb Button
+
+A futuristic glowing orb button with interactive animations.
+
+## Preview
+
+[View Live Preview](https://iammonsterbunny.github.io/Buttons/html%20buttons/AI%20button.html)
+
+## Features
+
+- Glowing orb effect with radial gradients
+- Breathing animation that pulses gently
+- Ripple effect when clicked
+- Hover effects that intensify the glow
+- Accessible with focus states
+- Smooth transitions for all interactions
+- Circular design with centered text
+
+## Usage
+
+Simply open the HTML file in any modern browser to see the button in action. Hover over the button to see the glow intensify and click to see the ripple effect.
+
+## Implementation Details
+
+The orb button is created with pure HTML and CSS:
+- CSS variables for easy customization of colors and sizes
+- Keyframe animations for breathing and ripple effects
+- CSS transitions for smooth state changes
+- Accessible design with proper focus states
+- Responsive design that works on different screen sizes
+
+# Cute Cat Loader
+
+An adorable cat-themed loading spinner with animated features.
+
+## Preview
+
+[View Live Preview](https://iammonsterbunny.github.io/Buttons/html%20buttons/loader.html)
+
+## Features
+
+- Animated cat head with twitching ears
+- Blinking eyes with moving pupils
+- Moving whiskers
+- "Loading..." text with pulsing effect
+- Responsive design with hover effects
+- Accessible with proper ARIA attributes
+- Smooth animations using CSS keyframes
+
+## Usage
+
+Simply open the HTML file in any modern browser to see the loader in action. The loader will continuously animate to indicate loading status.
+
+## Implementation Details
+
+The loader is created with pure HTML and CSS:
+- CSS variables for easy customization of colors and sizes
+- Keyframe animations for ear twitching, eye blinking, and whisker movement
+- CSS pseudo-elements for detailed cat features
+- Accessible design with proper ARIA attributes and focus management
+- Responsive design that works on different screen sizes

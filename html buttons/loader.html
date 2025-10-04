@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cute Cat Loader</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .cat-loader {
+      --cat-primary: #2d3748;
+      --cat-secondary: #4a5568;
+      --cat-accent: #ed64a6;
+      --cat-white: #ffffff;
+      --cat-eye: #48bb78;
+      --cat-nose: #fc8181;
+      --cat-size: 1em;
+      --shadow-color: rgba(0, 0, 0, 0.15);
+      
+      position: relative;
+      width: calc(12 * var(--cat-size));
+      height: calc(12 * var(--cat-size));
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .cat-loader:hover {
+      transform: scale(1.05);
+    }
+
+    .cat-loader:focus {
+      outline: 3px solid var(--cat-accent);
+      outline-offset: 0.5em;
+      border-radius: 50%;
+    }
+
+    .cat-loader:active {
+      transform: scale(0.98);
+    }
+
+    .cat-head {
+      position: absolute;
+      width: calc(10 * var(--cat-size));
+      height: calc(9 * var(--cat-size));
+      background: var(--cat-primary);
+      border-radius: 50% 50% 45% 45%;
+      top: calc(2 * var(--cat-size));
+      left: calc(1 * var(--cat-size));
+      box-shadow: 0 calc(0.4 * var(--cat-size)) calc(1 * var(--cat-size)) var(--shadow-color);
+    }
+
+    .cat-ear {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: calc(1.8 * var(--cat-size)) solid transparent;
+      border-right: calc(1.8 * var(--cat-size)) solid transparent;
+      border-bottom: calc(3 * var(--cat-size)) solid var(--cat-primary);
+      animation: earTwitch 2s ease-in-out infinite;
+    }
+
+    .cat-ear.left {
+      top: calc(-1.5 * var(--cat-size));
+      left: calc(0.5 * var(--cat-size));
+      transform-origin: bottom center;
+    }
+
+    .cat-ear.right {
+      top: calc(-1.5 * var(--cat-size));
+      right: calc(0.5 * var(--cat-size));
+      transform-origin: bottom center;
+      animation-delay: 0.3s;
+    }
+
+    .cat-ear-inner {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: calc(1.2 * var(--cat-size)) solid transparent;
+      border-right: calc(1.2 * var(--cat-size)) solid transparent;
+      border-bottom: calc(2 * var(--cat-size)) solid var(--cat-accent);
+      top: calc(0.5 * var(--cat-size));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes earTwitch {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-8deg); }
+      75% { transform: rotate(8deg); }
+    }
+
+    .cat-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .cat-eye {
+      position: absolute;
+      width: calc(1.8 * var(--cat-size));
+      height: calc(2 * var(--cat-size));
+      background: var(--cat-white);
+      border-radius: 50%;
+      top: calc(3.5 * var(--cat-size));
+      overflow: hidden;
+      animation: blink 3s ease-in-out infinite;
+    }
+
+    .cat-eye.left {
+      left: calc(2 * var(--cat-size));
+    }
+
+    .cat-eye.right {
+      right: calc(2 * var(--cat-size));
+    }
+
+    .cat-pupil {
+      position: absolute;
+      width: calc(1 * var(--cat-size));
+      height: calc(1.4 * var(--cat-size));
+      background: var(--cat-eye);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: lookAround 4s ease-in-out infinite;
+    }
+
+    .cat-pupil::after {
+      content: '';
+      position: absolute;
+      width: calc(0.3 * var(--cat-size));
+      height: calc(0.4 * var(--cat-size));
+      background: var(--cat-white);
+      border-radius: 50%;
+      top: 25%;
+      left: 25%;
+    }
+
+    @keyframes blink {
+      0%, 48%, 52%, 100% { height: calc(2 * var(--cat-size)); }
+      50% { height: calc(0.2 * var(--cat-size)); }
+    }
+
+    @keyframes lookAround {
+      0%, 100% { transform: translate(-50%, -50%); }
+      25% { transform: translate(-30%, -50%); }
+      50% { transform: translate(-50%, -40%); }
+      75% { transform: translate(-70%, -50%); }
+    }
+
+    .cat-nose {
+      position: absolute;
+      width: calc(1 * var(--cat-size));
+      height: calc(0.8 * var(--cat-size));
+      background: var(--cat-nose);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      top: calc(5.8 * var(--cat-size));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .cat-mouth {
+      position: absolute;
+      width: calc(2 * var(--cat-size));
+      height: calc(1 * var(--cat-size));
+      top: calc(6.2 * var(--cat-size));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .cat-mouth::before,
+    .cat-mouth::after {
+      content: '';
+      position: absolute;
+      width: calc(1 * var(--cat-size));
+      height: calc(0.8 * var(--cat-size));
+      border: calc(0.15 * var(--cat-size)) solid var(--cat-secondary);
+      border-top: none;
+      border-radius: 0 0 50% 50%;
+    }
+
+    .cat-mouth::before {
+      left: 0;
+      border-right: none;
+    }
+
+    .cat-mouth::after {
+      right: 0;
+      border-left: none;
+    }
+
+    .cat-whisker {
+      position: absolute;
+      height: calc(0.15 * var(--cat-size));
+      background: var(--cat-secondary);
+      border-radius: calc(0.1 * var(--cat-size));
+      animation: whiskerMove 2.5s ease-in-out infinite;
+    }
+
+    .cat-whisker.left-1 {
+      width: calc(3 * var(--cat-size));
+      top: calc(4.5 * var(--cat-size));
+      left: calc(-2.2 * var(--cat-size));
+      transform-origin: right center;
+    }
+
+    .cat-whisker.left-2 {
+      width: calc(2.5 * var(--cat-size));
+      top: calc(5.2 * var(--cat-size));
+      left: calc(-1.8 * var(--cat-size));
+      transform-origin: right center;
+      animation-delay: 0.3s;
+    }
+
+    .cat-whisker.right-1 {
+      width: calc(3 * var(--cat-size));
+      top: calc(4.5 * var(--cat-size));
+      right: calc(-2.2 * var(--cat-size));
+      transform-origin: left center;
+      animation-delay: 0.15s;
+    }
+
+    .cat-whisker.right-2 {
+      width: calc(2.5 * var(--cat-size));
+      top: calc(5.2 * var(--cat-size));
+      right: calc(-1.8 * var(--cat-size));
+      transform-origin: left center;
+      animation-delay: 0.45s;
+    }
+
+    @keyframes whiskerMove {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    .loading-text {
+      position: absolute;
+      bottom: calc(-3 * var(--cat-size));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: calc(1.2 * var(--cat-size));
+      color: var(--cat-white);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cat-loader" tabindex="0" role="status" aria-label="Loading, please wait">
+    <div class="cat-head">
+      <div class="cat-ear left">
+        <div class="cat-ear-inner"></div>
+      </div>
+      <div class="cat-ear right">
+        <div class="cat-ear-inner"></div>
+      </div>
+      
+      <div class="cat-face">
+        <div class="cat-eye left">
+          <div class="cat-pupil"></div>
+        </div>
+        <div class="cat-eye right">
+          <div class="cat-pupil"></div>
+        </div>
+        
+        <div class="cat-nose"></div>
+        <div class="cat-mouth"></div>
+        
+        <div class="cat-whisker left-1"></div>
+        <div class="cat-whisker left-2"></div>
+        <div class="cat-whisker right-1"></div>
+        <div class="cat-whisker right-2"></div>
+      </div>
+    </div>
+    
+    <div class="loading-text">Loading...</div>
+  </div>
+</body>
+</html>
